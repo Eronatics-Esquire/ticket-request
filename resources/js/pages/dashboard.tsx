@@ -11,16 +11,16 @@ import {
 } from '@dnd-kit/core';
 import { useState } from 'react';
 
+import { FieldEditor } from '@/components/form-builder/FieldEditor';
 import { FieldPalette } from '@/components/form-builder/FieldPalette';
-import { generateId } from '@/lib/utils';
-import { dashboard } from '@/routes';
-import type { BreadcrumbItem } from '@/types';
-import type { FormField } from '@/types';
 import { FormCanvas } from '@/components/form-builder/FormCanvas';
 import { FormPreview } from '@/components/form-builder/FormPreview';
-import { FieldEditor } from '@/components/form-builder/FieldEditor';
-import { ThemeToggle } from '@/components/form-builder/ThemeToggle';
+import { FormTemplates } from '@/components/form-builder/FormTemplates';
+import { PremiumTemplates } from '@/components/form-builder/PremiumTemplates';
 import AppLayout from '@/layouts/app-layout';
+import { generateId } from '@/lib/utils';
+import { dashboard } from '@/routes';
+import type { BreadcrumbItem, FormField } from '@/types';
 import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -106,24 +106,6 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Form Builder" />
             <div className="min-h-screen bg-background">
-                {/* <header className="border-b bg-card">
-                    <div className="container mx-auto px-4 py-4">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <h1 className="text-2xl font-bold">
-                                    Form Builder
-                                </h1>
-                                <p className="text-muted-foreground">
-                                    Drag and drop fields to create your form,
-                                    then export as JSON schema or React
-                                    component
-                                </p>
-                            </div>
-                            <ThemeToggle />
-                        </div>
-                    </div>
-                </header> */}
-
                 <DndContext
                     sensors={sensors}
                     onDragStart={handleDragStart}
@@ -133,17 +115,19 @@ export default function Dashboard() {
                     <div className="mx-auto p-4">
                         <div className="flex gap-4">
                             <div className="space-y-4">
-                                {/* <FormTemplates /> */}
-                                {/* <PremiumTemplates /> */}
-                                {/* <LicenseKeyInput /> */}
-                                {/* <MultiStepControls /> */}
                                 <FieldPalette />
+                                <FormTemplates />
+                                <PremiumTemplates />
+                                {/* <MultiStepControls /> */}
                             </div>
                             <FormCanvas />
                             <div className="flex h-fit gap-4">
-                                <FormPreview />
-                                <FieldEditor />
-                                {/* <ExportPanel /> */}
+                                <div>
+                                    <FormPreview />
+                                </div>
+                                <div>
+                                    <FieldEditor />
+                                </div>
                             </div>
                         </div>
                     </div>
