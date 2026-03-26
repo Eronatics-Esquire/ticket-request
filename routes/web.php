@@ -13,7 +13,7 @@ Route::prefix('admin')->group(function () {
             ]);
         })->name('home');
     });
- 
+    
     Route::middleware('guest')->get('/login', function () {
         return redirect('/admin');
     })->name('login');
