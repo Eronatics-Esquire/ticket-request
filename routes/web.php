@@ -6,13 +6,18 @@ use Laravel\Fortify\Features;
 
 
 Route::prefix('admin')->group(function () {
-    Route::inertia('/', 'welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ])->name('home');
-
-    Route::middleware(['auth', 'verified'])->group(function () {
-        Route::inertia('/dashboard', 'dashboard')->name('dashboard');
+     Route::middleware('guest')->group(function () {
+        Route::get('/', function () {
+            return Inertia::render('auth/login', [
+                'canResetPassword' => Features::enabled(Features::resetPasswords()),
+            ]);
+        })->name('home');
     });
+
+    Route::middleware('guest')->get('/login', function () {
+        return redirect('/admin');
+    })->name('login');
+
     require __DIR__ . '/settings.php';
 });
 
